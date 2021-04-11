@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Controlsueldo</string>
+    <string name="nuevo">Registrar Turno</string>
+    <string name="ingreso">Fichar ahora</string>
+    <string name="salir">Fichar Salida</string>
+    <string name="turnos">Ver turnos</string>
 </resources>
