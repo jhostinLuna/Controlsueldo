@@ -16,6 +16,7 @@ import android.widget.TimePicker;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class TurnoNuevo extends AppCompatActivity implements View.OnClickListener {
     //clases donde se guardan los registros
@@ -62,14 +63,22 @@ public class TurnoNuevo extends AppCompatActivity implements View.OnClickListene
     }
     private void showDatePickerDialog(int idButton) {
         DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
+            Calendar nuevaFecha;
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 Button fecha = findViewById(idButton);
-                final String selectDate = dayOfMonth+"/"+month+"/"+year;
                 if(idButton == R.id.btn_fecha_entrada){
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy");
+                    nuevaFecha = Calendar.getInstance();
+                    nuevaFecha.set(year,month,dayOfMonth);
+                    rEntrada.setEntrada(nuevaFecha);
+                }else {
+                    nuevaFecha = GregorianCalendar.getInstance();
+                    nuevaFecha.set(year,month,dayOfMonth);
+                    rSalida.setEntrada(nuevaFecha);
                 }
-                fecha.setText(selectDate);
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                String cadena = String.valueOf(nuevaFecha.get(Calendar.DAY_OF_MONTH))+"/"+nuevaFecha.get(Calendar.MONTH)+"/"+String.valueOf(nuevaFecha.get(Calendar.YEAR));
+                fecha.setText(sdf.format(nuevaFecha.getTime()));
             }
         });
 
