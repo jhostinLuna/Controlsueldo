@@ -10,6 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="-16dp"
         tools:layout_editor_absoluteY="0dp">
@@ -61,6 +62,13 @@
             android:layout_height="wrap_content"
             android:backgroundTint="#4CAF50"
             android:text="Hora salida" />
+
+        <Button
+            android:id="@+id/btn_ltn_guardar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="GUARDAR" />
 
     </LinearLayout>
 

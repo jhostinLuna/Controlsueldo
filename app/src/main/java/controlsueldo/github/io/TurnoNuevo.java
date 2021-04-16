@@ -13,7 +13,10 @@ import android.widget.TimePicker;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Locale;
+import java.util.regex.Pattern;
 
+//View.OnclickListener es el escuchador de las vistas
 public class TurnoNuevo extends AppCompatActivity implements View.OnClickListener {
     //clases donde se guardan los registros
     Registro cRegistro;
@@ -33,18 +36,22 @@ public class TurnoNuevo extends AppCompatActivity implements View.OnClickListene
         horaSalida.setOnClickListener(this);
         // Instancia las clases
         cRegistro = new Registro();
-        cRegistro.setEntrada(Calendar.getInstance());
-        cRegistro.setSalida(Calendar.getInstance());
+        fechaEntrada.setText(Registro.getFormatFecha(cRegistro.getEntrada(),"dd/MM/yyyy"));
+        fechaSalida.setText(Registro.getFormatFecha(cRegistro.getSalida(),"dd/MM/yyyy"));
+        horaEntrada.setText(Registro.getFormatFecha(cRegistro.getEntrada(),"hh:mm"));
+        horaSalida.setText(Registro.getFormatFecha(cRegistro.getSalida(),"hh:mm"));
     }
 
     @Override
     public void onClick(View v) {
-
+        // Recoge fecha y hora Entrada
         if (R.id.btn_fecha_entrada == v.getId()){
             showDatePickerDialog(v.getId());
         }else if (R.id.btn_hora_entrada == v.getId()) {
             showTimePickerDialog(v.getId());
         }
+
+        //Recoge fecha y hora de salida
         else if (R.id.btn_fecha_salida == v.getId()){
             showDatePickerDialog(v.getId());
         }else if (R.id.btn_hora_salida == v.getId()){
@@ -52,7 +59,9 @@ public class TurnoNuevo extends AppCompatActivity implements View.OnClickListene
         }
 
     }
+    //Metodos particulares para crear el fragment Date
     private void showDatePickerDialog(int idButton) {
+        //newInstance es mi metodo particular que uso para recoger el Listener de
         DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
             Calendar nuevaFecha;
             @Override
@@ -67,7 +76,7 @@ public class TurnoNuevo extends AppCompatActivity implements View.OnClickListene
                     nuevaFecha.set(year,month,dayOfMonth,cRegistro.getSalida().get(Calendar.HOUR_OF_DAY),cRegistro.getSalida().get(Calendar.HOUR));
                     cRegistro.setSalida(nuevaFecha);
                 }
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", new Locale("es","ES"));
                 //String cadena = String.valueOf(nuevaFecha.get(Calendar.DAY_OF_MONTH))+"/"+nuevaFecha.get(Calendar.MONTH)+"/"+String.valueOf(nuevaFecha.get(Calendar.YEAR));
                 fecha.setText(sdf.format(nuevaFecha.getTime()));
             }
@@ -78,6 +87,7 @@ public class TurnoNuevo extends AppCompatActivity implements View.OnClickListene
 
 
     }
+    //Metodo particular para crear el fragment Time
     public void showTimePickerDialog(int idButton){
         TimePickerFragment newFragment = TimePickerFragment.newInstance(new TimePickerDialog.OnTimeSetListener() {
             Calendar nuevaHora;
@@ -104,11 +114,18 @@ public class TurnoNuevo extends AppCompatActivity implements View.OnClickListene
                             minute);
                     cRegistro.setSalida(nuevaHora);
                 }
-                SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
+                SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a", new Locale("es","ES"));
                 //String cadena = String.valueOf(nuevaFecha.get(Calendar.DAY_OF_MONTH))+"/"+nuevaFecha.get(Calendar.MONTH)+"/"+String.valueOf(nuevaFecha.get(Calendar.YEAR));
                 hora.setText(sdf.format(nuevaHora.getTime()));
             }
         });
         newFragment.show(getSupportFragmentManager(),"timePicker");
     }
+
+
+
+    public void guardarRegistro(){
+
+    }
+
 }
