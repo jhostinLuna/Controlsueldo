@@ -1,4 +1,4 @@
-package controlsueldo.github.io;
+package controlsueldo.github.io.BDD;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

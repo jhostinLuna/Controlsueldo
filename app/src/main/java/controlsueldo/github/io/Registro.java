@@ -1,40 +1,35 @@
 package controlsueldo.github.io;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Locale;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-public class Registro {
-    private Calendar entrada;
-    private Calendar salida;
+public class Registro implements Serializable {
+    private LocalDateTime entrada;
+    private LocalDateTime salida;
 
     private String nota;
     // Instancia actual fecha de calendario Gregoriano implantado en mayor parte del mundo
     public Registro() {
-        entrada = GregorianCalendar.getInstance();
-        salida = GregorianCalendar.getInstance();
+        entrada = LocalDateTime.now();
+        salida = LocalDateTime.now();
     }
 
-    public Registro(Calendar entrada, Calendar salida, String nota) {
-        this.entrada = entrada;
-        this.salida = salida;
-        this.nota = nota;
-    }
-
-    public Calendar getEntrada() {
+    public LocalDateTime getEntrada() {
         return entrada;
     }
 
-    public void setEntrada(Calendar entrada) {
+    public void setEntrada(LocalDateTime entrada) {
         this.entrada = entrada;
     }
 
-    public Calendar getSalida() {
+    public LocalDateTime getSalida() {
         return salida;
     }
 
-    public void setSalida(Calendar salida) {
+    public void setSalida(LocalDateTime salida) {
         this.salida = salida;
     }
 
@@ -47,9 +42,9 @@ public class Registro {
     }
 
     // Devuelve la fecha en formato dd/mm/yyyy
-    public static String getFormatFecha(Calendar fecha,String pattern) {
-        SimpleDateFormat sdf = new SimpleDateFormat(pattern, new Locale("es","ES"));
-        //String cadena = String.valueOf(nuevaFecha.get(Calendar.DAY_OF_MONTH))+"/"+nuevaFecha.get(Calendar.MONTH)+"/"+String.valueOf(nuevaFecha.get(Calendar.YEAR));
-        return sdf.format(fecha.getTime());
+    public static String getFormatFecha(LocalDateTime date,String pattern) {
+        DateTimeFormatter miDateTimeFormatter = DateTimeFormatter.ofPattern(pattern);
+        return date.format(miDateTimeFormatter);
     }
+
 }

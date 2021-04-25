@@ -4,4 +4,7 @@
     <string name="ingreso">Fichar ahora</string>
     <string name="salir">Fichar Salida</string>
     <string name="turnos">Ver turnos</string>
+    <string name="entrada">Registrar Entrada</string>
+    <string name="salida">Registrar Salida</string>
+    <string name="guardar_registro_nuevo">GUARDAR</string>
 </resources>
